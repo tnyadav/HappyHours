@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_bg"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/layout_padding_small" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <com.happyhours.util.CustomTextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="User"
+               android:textSize="@dimen/normal_text_font_size" />
+
+            <com.happyhours.util.CustomTextView
+                android:id="@+id/loginStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_blue"
+                android:text="Online :T.N.Yadav "
+                android:textSize="@dimen/small_text_font_size" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/loginLogout"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:background="@drawable/setting_button_selector"
+            android:textSize="@dimen/mediume_text_font_size" />
+
+    </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/layout_padding_small" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Profile"
+               android:textSize="@dimen/normal_text_font_size" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Profile"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/small_text_font_size" />
+
+        </LinearLayout>
+
+        <Button
+           
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text=" View "
+            android:textColor="@color/white"
+             android:background="@drawable/setting_button_selector"
+            android:textSize="@dimen/mediume_text_font_size" />
+
+    </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+
+</LinearLayout>

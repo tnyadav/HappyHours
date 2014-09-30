@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_bg" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <!--
+         <com.jainbooks.utils.JainTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_padding_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        android:padding="@dimen/layout_padding_medium"
+        android:shadowColor="@color/light_gray_divider"
+        android:shadowRadius="2"
+        android:text="Register to JainBooks"
+        android:textColor="@color/black"
+        android:textSize="@dimen/layout_padding_large"
+        android:textStyle="bold" />
+    -->
+
+    <LinearLayout
+        android:id="@+id/profileContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_padding_medium"
+        android:layout_marginRight="@dimen/layout_padding_medium"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/container_dropshadow"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:ems="10"
+            android:hint="User Id"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="@dimen/layout_padding_medium"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/large_text_font_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
+<EditText
+     android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:ems="10"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="@dimen/layout_padding_medium"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/large_text_font_size" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
+        <EditText
+            android:id="@+id/etPassword1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="@dimen/layout_padding_medium"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/large_text_font_size" />
+<View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
+
+
+        <EditText
+            android:id="@+id/etPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Re-enter Password"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="@dimen/layout_padding_medium"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/large_text_font_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_padding_medium"
+            android:layout_marginLeft="@dimen/layout_padding_medium"
+            android:layout_marginRight="@dimen/layout_padding_medium"
+            android:layout_marginTop="@dimen/layout_padding_medium"
+            android:background="@drawable/setting_button_selector"
+            android:paddingLeft="@dimen/layout_padding_small"
+            android:paddingRight="@dimen/layout_padding_small"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text_font_size" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

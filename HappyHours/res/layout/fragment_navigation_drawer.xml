@@ -1,0 +1,197 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="@dimen/navigation_drawer_width"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:divider="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context="com.happyhours.fragments.NavigationDrawerFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/imageViewDrawerMenuItem"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:paddingLeft="12dp"
+            android:src="@drawable/deals_marker_maps" />
+
+        <com.happyhours.util.CustomTextView
+            android:id="@+id/textViewDrawerMenuItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Happy Hours Deals"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:paddingLeft="12dp"
+            android:src="@drawable/filter_multi_selected" />
+
+        <com.happyhours.util.CustomTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Populer Deals"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/categoryContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:paddingLeft="12dp"
+                android:src="@drawable/upcoming_stays_view_bookings_icon" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="Category"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/categoryDetailContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F2F1F0"
+            android:orientation="vertical"
+            android:paddingLeft="60dp" >
+
+            <com.happyhours.util.CustomTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Hotels"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/mediume_text_font_size" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Restaurants"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/mediume_text_font_size" />
+       
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+
+<LinearLayout
+    android:id="@+id/myAccountContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:paddingLeft="12dp"
+            android:src="@drawable/profile_page_icon" />
+
+        <com.happyhours.util.CustomTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="My Account"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:paddingLeft="12dp"
+            android:src="@drawable/ic_settings" />
+
+        <com.happyhours.util.CustomTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="Settings"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black" />
+
+
+
+</LinearLayout>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.happyhours.util.CustomTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/text_blue"
+        android:padding="5dp"
+        android:text=""
+        android:textSize="@dimen/mediume_text_font_size"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical" >
+
+        <android.support.v4.view.ViewPager
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/pager"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+        </android.support.v4.view.ViewPager>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="10dp"
+            android:background="@color/transparent"
+            android:padding="10dip"
+            app:fillColor="#88FF0000"
+            app:pageColor="@color/transparent"
+            app:radius="7dp"
+            app:strokeColor="#FF000000"
+            app:strokeWidth="1dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <ScrollView
+            android:id="@+id/main_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout_property_detail_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:orientation="horizontal" >
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This deal can be bought over the next:"
+                        android:textColor="@color/text_blue"
+                        android:textSize="@dimen/mediume_text_font_size" />
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:text=" 9 days"
+                        android:textColor="#CA070A"
+                        android:textSize="@dimen/normal_text_font_size" />
+                </LinearLayout>
+
+                <com.happyhours.util.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="5dp"
+                    android:text="In A Nutshell"
+                    android:textColor="@color/text_blue"
+                    android:textSize="@dimen/normal_text_font_size" />
+
+                <com.happyhours.util.CustomTextView
+                    android:id="@+id/nutshell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="5dp"
+                    android:text="In A Nutshell"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/mediume_text_font_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/container_dropshadow"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <com.happyhours.util.CustomTextView
+                        android:id="@+id/info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="5dp"
+                        android:text="In A Nutshell"
+                        android:textColor="@color/text_normal"
+                        android:textSize="@dimen/mediume_text_font_size" />
+                </LinearLayout>
+
+                <com.happyhours.util.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="5dp"
+                    android:text="The Offer"
+                    android:textColor="@color/text_blue"
+                    android:textSize="@dimen/normal_text_font_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:orientation="vertical" >
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Option 1: "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/normal_text_font_size"
+                        android:textStyle="bold" />
+
+                    <com.happyhours.util.CustomTextView
+                        android:id="@+id/option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="The Offer"
+                        android:textColor="@color/text_normal"
+                        android:textSize="@dimen/mediume_text_font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="top"
+                    android:orientation="vertical" >
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Option 2: "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/normal_text_font_size"
+                        android:textStyle="bold" />
+
+                    <com.happyhours.util.CustomTextView
+                        android:id="@+id/option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="The Offer"
+                        android:textColor="@color/text_normal"
+                        android:textSize="@dimen/mediume_text_font_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical" >
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Option 3: "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/normal_text_font_size"
+                        android:textStyle="bold" />
+
+                    <com.happyhours.util.CustomTextView
+                        android:id="@+id/option3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="The Offer"
+                        android:textColor="@color/text_normal"
+                        android:textSize="@dimen/mediume_text_font_size" />
+                </LinearLayout>
+
+                <com.happyhours.util.CustomTextView
+                    android:id="@+id/moreInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" >
+                </com.happyhours.util.CustomTextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/call_hotel" >
+                    </ImageView>
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:text="Get a call back"
+                        android:textColor="@color/text_blue"
+                        android:textSize="@dimen/normal_text_font_size" />
+
+                    <com.happyhours.util.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:text=">"
+                        android:textSize="@dimen/normal_text_font_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/FrameLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" >
+
+                    <fragment
+                        android:id="@+id/detailMap"
+                        android:name="com.google.android.gms.maps.MapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="10dp" />
+
+                    <ImageView
+                        android:id="@+id/transparent_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@android:color/transparent" />
+                </FrameLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>
