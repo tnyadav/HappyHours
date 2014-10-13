@@ -2,6 +2,7 @@ package com.happyhours.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -30,9 +31,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.happyhours.adapter.TestFragmentAdapter;
 import com.happyhours.fragments.TestFragment;
 import com.happyhours.model.Data;
+import com.happyhours.model.DealOffers;
+import com.happyhours.model.Deals;
 import com.happyhours.model.ListItem;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -50,7 +54,7 @@ public class DealsDetailActivity extends FragmentActivity implements ActionBar.O
 	public TextView detailTitle;
     public TextView nutshell;
 	public TextView info;
-	public TextView moreAbout;
+	public TextView moreAbout,remainingDay;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +80,10 @@ public class DealsDetailActivity extends FragmentActivity implements ActionBar.O
 		getActionBar().setListNavigationCallbacks(aAdpt, this);
 		setContentView(R.layout.activity_deal_details);
 		
-		/* */
 		
-		int index=getIntent().getIntExtra("index",0);
+		Deals deals=new Gson().fromJson(getIntent().getStringExtra("deal"), Deals.class);
+		
+		
 		detailTitle=(TextView)findViewById(R.id.title);
 		option1=(TextView)findViewById(R.id.option1);
 		option2=(TextView)findViewById(R.id.option2);
@@ -86,18 +91,23 @@ public class DealsDetailActivity extends FragmentActivity implements ActionBar.O
 		nutshell=(TextView)findViewById(R.id.nutshell);
 	    info=(TextView)findViewById(R.id.info);
 		moreAbout=(TextView)findViewById(R.id.moreInfo);
-		List<ListItem> list=Data.getData();
-		ListItem listItem=list.get(index);
+		remainingDay=(TextView)findViewById(R.id.remainingDay);
 		
-		detailTitle.setText(listItem.detailTitle);
-		option1.setText(listItem.option1);
-		option2.setText(listItem.option2);
-		option3.setText(listItem.option3);
-		nutshell.setText(listItem.Nutshell);
-		info.setText(listItem.info);
-		moreAbout.setText(listItem.moreAbout);
+		
+		detailTitle.setText(deals.getTitle());
+		long remaing=Long.parseLong(deals.getEndDate())-System.currentTimeMillis();
+		long days = TimeUnit.MILLISECONDS.toDays(remaing);
+		remainingDay.setText(" "+days+" Days");
+		List<DealOffers> dealOffersList=deals.getDealOffersList();
+		
+		option1.setText(dealOffersList.get(0).getOfferName());
+		option2.setText(dealOffersList.get(1).getOfferName());
+		option3.setText(dealOffersList.get(2).getOfferName());
+		nutshell.setText(deals.getSubTitle());
+		info.setText(deals.getDescription());
+		//moreAbout.setText(listItem.moreAbout);
 		pager = (ViewPager)findViewById(R.id.pager);
-		TestFragmentAdapter mAdapter = new TestFragmentAdapter(getSupportFragmentManager(), listItem.image);
+		TestFragmentAdapter mAdapter = new TestFragmentAdapter(getSupportFragmentManager(), deals.getDealImagesList(),DealsDetailActivity.this);
 
 		 pager.setAdapter(mAdapter);
          CirclePageIndicator mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
@@ -127,13 +137,13 @@ public class DealsDetailActivity extends FragmentActivity implements ActionBar.O
 			googleMap.getUiSettings().setRotateGesturesEnabled(true);
 
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
-			double[] randomLocation = {Double.parseDouble(listItem.lat) ,Double.parseDouble(listItem.lang)};
+			double[] randomLocation = {Double.parseDouble(deals.getLatitude()) ,Double.parseDouble(deals.getLongitude())};
 		//	double[] randomLocation = createRandLocation(Long.parseLong(listItem.lat), Long.parseLong(listItem.lang));
 
 			// Adding a marker
 			MarkerOptions marker = new MarkerOptions().position(
 					new LatLng(randomLocation[0], randomLocation[1]))
-					.title(listItem.title1);
+					.title(deals.getTitle());
         	marker.icon(BitmapDescriptorFactory
 					.fromResource(R.drawable.pin_red));
 

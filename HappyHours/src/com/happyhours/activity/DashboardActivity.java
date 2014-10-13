@@ -1,5 +1,18 @@
 package com.happyhours.activity;
 
+import java.io.File;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,15 +21,19 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.app.happyhours.R;
+import com.google.gson.Gson;
 import com.happyhours.fragments.NavigationDrawerFragment;
 import com.happyhours.fragments.NavigationDrawerFragment.NavigationDrawerCallbacks;
+import com.happyhours.model.Deals;
 import com.happyhours.util.TAListener;
 import com.jainbooks.web.TAPOSTWebServiceAsyncTask;
 
@@ -63,6 +80,7 @@ public class DashboardActivity extends Activity implements
 			
 	}
 
+	@SuppressLint("NewApi")
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
 		actionBar.setIcon(R.drawable.logo);
@@ -152,7 +170,7 @@ public class DashboardActivity extends Activity implements
 				null,
 				listener,
 				url,
-				argJSONString).executeOnExecutor(
+				argJSONString,null).executeOnExecutor(
 				AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
 		
 	}
@@ -164,4 +182,10 @@ public class DashboardActivity extends Activity implements
 			//setContentView(R.layout.detail_property);
 		}
 	}*/
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+	}
 }

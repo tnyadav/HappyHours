@@ -3,6 +3,8 @@ package com.jainbooks.web;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.security.auth.PrivateCredentialPermission;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -34,13 +36,15 @@ public class TAPOSTWebServiceAsyncTask extends AsyncTask<Void, Void, String> {
 	private String requestURL;
 	private boolean mShowDialog;
 	private boolean avoidJSONVerify;
+	private String header;
 
 	public TAPOSTWebServiceAsyncTask(Activity argActivity, Bundle argBundle,
-			TAListener argListener, String argRequestURL, String argJSONString) {
+			TAListener argListener, String argRequestURL, String argJSONString,String header) {
 		mActivity = argActivity;
 		mListener = argListener;
 		mBundle = argBundle;
 		this.requestURL = argRequestURL;
+		this.header=header;
 		mJSONString = argJSONString;
 
 		mShowDialog = true;
@@ -94,6 +98,8 @@ public class TAPOSTWebServiceAsyncTask extends AsyncTask<Void, Void, String> {
 
 			System.out.println("POST JSON: " + mJSONString);
 			System.out.println("POST REQ: " + requestURL);
+			
+			
 			StringEntity se = new StringEntity(mJSONString);
 
 			// httppost.setEntity(new UrlEncodedFormEntity(mPOSTParams));
@@ -103,28 +109,14 @@ public class TAPOSTWebServiceAsyncTask extends AsyncTask<Void, Void, String> {
 			// content
 			httppost.setHeader("Accept", "application/json");
 			httppost.setHeader("Content-type", "application/json");
+			if (header!=null) {
+				httppost.setHeader("Authorization", header);
+			}
 
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity httpEntity = response.getEntity();
 			mResponseJson = EntityUtils.toString(httpEntity);
-			/*inputStream = httpEntity.getContent();
-
-			// Parse the response to string
-			BufferedReader reader = null;
-			reader = new BufferedReader(new InputStreamReader(inputStream));
-
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			try {
-				while ((line = reader.readLine()) != null) {
-					sb.append(line + "\n");
-				}
-				inputStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			mResponseJson = sb.toString();*/
+		
 			Log.e("API response", mResponseJson);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

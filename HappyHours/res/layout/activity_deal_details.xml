@@ -85,12 +85,14 @@
                         android:textSize="@dimen/mediume_text_font_size" />
 
                     <com.happyhours.util.CustomTextView
+                        android:id="@+id/remainingDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:text=" 9 days"
                         android:textColor="#CA070A"
                         android:textSize="@dimen/normal_text_font_size" />
+
                 </LinearLayout>
 
                 <com.happyhours.util.CustomTextView

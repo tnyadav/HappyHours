@@ -1,14 +1,20 @@
 package com.happyhours.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.app.happyhours.R;
 
-public  class Data {
+public  class Data implements Serializable{
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 //public static 	ArrayList<ListItem> propertyList ;
 	//1-
-public static  ArrayList<ListItem> getData()
+/*public static  ArrayList<ListItem> getData()
 {
 	ArrayList<ListItem>	propertyList = new ArrayList<ListItem>();
 	ListItem listItem = new ListItem(0,
@@ -21,6 +27,7 @@ public static  ArrayList<ListItem> getData()
 			"Dinner buffet for 1 person for AED 249 instead of AED 425",
 			"Dinner buffet for 1 person with pool access for AED 289 instead of AED 600 ",
 			"Dinner buffet for 2 people for AED 479 instead of AED 850 ",
+			
 			"Dinner Buffet with Pool Access for up to 2 people starting from AED 249 at Al Hadheerah, Bab Al Shams",
 
 			"Get a taste of genuine Arabian flavours at Bab Al Shams Resort",
@@ -128,7 +135,7 @@ public static  ArrayList<ListItem> getData()
 			         propertyList.add(listItem5);
 					return propertyList;
 					
-}
+}*/
 
 
 }

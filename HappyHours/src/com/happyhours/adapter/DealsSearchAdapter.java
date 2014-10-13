@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +15,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.happyhours.R;
+import com.happyhours.model.Deals;
 import com.happyhours.model.ListItem;
+import com.happyhours.util.ImageLoader;
 
-public class DealsSearchAdapter extends ArrayAdapter<ListItem>{
-	  public DealsSearchAdapter(Context context, int viewResourceId, List<ListItem> objects) {
+public class DealsSearchAdapter extends ArrayAdapter<Deals>{
+	Context context;
+	private int viewResourceId;
+	  public DealsSearchAdapter(Context context, int viewResourceId, List<Deals> objects) {
 	        super(context, viewResourceId, objects);
+	        this.context=context;
+	        this.viewResourceId=viewResourceId;
 	    }
 	    
 	    @Override
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        
-	      ListItem  item = getItem(position);
+	    	Deals  item = getItem(position);
 	        
 	        ViewHolder holder;
 	        if (convertView == null) {
 	            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-	            convertView = inflater.inflate(R.layout.deals_item, parent, false);
+	            convertView = inflater.inflate(viewResourceId, parent, false);
 	            holder = new ViewHolder();
 	            holder = new ViewHolder();
 	            holder.propertyIcon = (ImageView) convertView.findViewById(R.id.imageview_property_image);
 	            holder .off = (TextView) convertView.findViewById(R.id.off);
 	            holder .title1 = (TextView) convertView.findViewById(R.id.title1);
 	            holder .title2 = (TextView) convertView.findViewById(R.id.title2);
-	            holder .title3 = (TextView) convertView.findViewById(R.id.title3);
+	            holder .distanse = (TextView) convertView.findViewById(R.id.distanse);
 	            holder .oldPrice = (TextView) convertView.findViewById(R.id.oldPrice);
 	            holder .newPrice = (TextView) convertView.findViewById(R.id.newPrice);
 	          
@@ -46,14 +53,23 @@ public class DealsSearchAdapter extends ArrayAdapter<ListItem>{
 	            holder = (ViewHolder) convertView.getTag();
 	            
 	        }
-	        holder.propertyIcon.setImageResource(item.propertyIcon);
-	        holder .off.setText(item.off+"%");
-            holder .title1.setText(item.title1);
-            holder .title2.setText(item.title2);
-            holder .title3.setText(item.title3);
-            holder .oldPrice.setText(item.oldPrice);
+	        ImageLoader imageLoader=new ImageLoader(context);
+	        imageLoader.displayImage(item.getDealMainImage(), holder.propertyIcon);
+	      //  holder.propertyIcon.setImageResource(item.propertyIcon);
+	        holder .off.setText(item.getDiscount()+"%");
+            holder .title1.setText(item.getTitle());
+            holder .title2.setText(item.getLocation());
+            String distanse=item.getRelativeDistance();
+            if (distanse!=null||!TextUtils.isEmpty(distanse)) {
+            	String s = String.format("%.2f", Float.parseFloat(distanse));
+            	 holder.distanse.setText(s+" KM");
+			}else {
+				holder.distanse.setVisibility(View.GONE);
+			}
+           
+            holder .oldPrice.setText(item.getOriginalPrice());
             holder .oldPrice.setPaintFlags(holder .oldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder .newPrice.setText(item.newPrice);
+            holder .newPrice.setText(item.getNewPrice());
 	       
 	        
 	        return convertView;
@@ -68,7 +84,7 @@ public class DealsSearchAdapter extends ArrayAdapter<ListItem>{
 	    	private TextView off;
 	    	private TextView title1;
 	    	private TextView title2;
-	    	private TextView title3;
+	    	private TextView distanse;
 	    	private TextView oldPrice;
 	    	private TextView newPrice;
 	    	
