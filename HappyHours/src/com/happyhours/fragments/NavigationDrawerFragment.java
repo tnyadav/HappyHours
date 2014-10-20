@@ -109,6 +109,16 @@ public class NavigationDrawerFragment extends Fragment {
 		// (LinearLayout)view.findViewById(R.id.categoryDetailContainer1);
 		// categoryDetailContainer1.setVisibility(View.GONE);
 		categoryDetailContainer.setVisibility(View.GONE);
+		LinearLayout map = (LinearLayout) view
+				.findViewById(R.id.map);
+		map.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//selectItem(0);
+			}
+		});
+		
 		LinearLayout categoryContainer = (LinearLayout) view
 				.findViewById(R.id.categoryContainer);
 		categoryContainer.setOnClickListener(new OnClickListener() {
@@ -265,12 +275,15 @@ public class NavigationDrawerFragment extends Fragment {
 		if (mCallbacks != null) {
 			switch (position) {
 			case 0:
+			/*	
+				mCallbacks.onNavigationDrawerItemSelected("Admin",
+    					new DealEntryFragment());*/
 				mCallbacks.onNavigationDrawerItemSelected("Happy Hours Deals",
 						new MapDetailFragment());
 				break;
             case 1:
-            	mCallbacks.onNavigationDrawerItemSelected("Account",
-    					new UserAccountFragment());
+            	mCallbacks.onNavigationDrawerItemSelected("Admin",
+    					new DealEntryFragment());
 				break;
 			default:
 				break;

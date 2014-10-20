@@ -18,20 +18,7 @@ public class Deals {
 		return subTitle;
 	}
 
-	@Override
-	public String toString() {
-		return "Deals [id=" + id + ", title=" + title + ", subTitle="
-				+ subTitle + ", description=" + description + ", location="
-				+ location + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", originalPrice=" + originalPrice
-				+ ", newPrice=" + newPrice + ", discount=" + discount
-				+ ", dealMainImage=" + dealMainImage + ", dealOffersList="
-				+ dealOffersList + ", dealImagesList=" + dealImagesList
-				+ ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", dealType=" + dealType + ", isExpired=" + isExpired
-				+ ", relativeDistance=" + relativeDistance
-				+ ", requiredDistance=" + requiredDistance + "]";
-	}
+	
 
 	public void setSubTitle(String subTitle) {
 		this.subTitle = subTitle;
@@ -212,5 +199,19 @@ public class Deals {
 
 	public void setRequiredDistance(String requiredDistance) {
 	this.requiredDistance = requiredDistance;
+	}
+	@Override
+	public String toString() {
+		return "Deals [id=" + id + ", title=" + title + ", subTitle="
+				+ subTitle + ", description=" + description + ", location="
+				+ location + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", originalPrice=" + originalPrice
+				+ ", newPrice=" + newPrice + ", discount=" + discount
+				+ ", dealMainImage=" + dealMainImage + ", dealOffersList="
+				+ dealOffersList + ", dealImagesList=" + dealImagesList
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", dealType=" + dealType + ", isExpired=" + isExpired
+				+ ", relativeDistance=" + relativeDistance
+				+ ", requiredDistance=" + requiredDistance + "]";
 	}
 }

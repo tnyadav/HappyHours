@@ -31,5 +31,8 @@
 	   <color name="orange">#F9C330</color>
      <color name="orange_light">#FFDE85</color>
      <color name="menu_text_color">#003582</color>
+     
+      <color name="jain_book_store">#3F5CA9</color>
+     <color name="jain_book_store_dim">#6A7BED</color>
 	
 </resources>

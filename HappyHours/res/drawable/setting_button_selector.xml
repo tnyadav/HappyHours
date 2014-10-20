@@ -2,15 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true"><shape android:shape="rectangle">
-            <solid android:color="#064D7C" />
+            <solid android:color="@color/jain_book_store_dim" />
 
             <corners android:radius="2dp" />
         </shape></item>
     <item><shape android:shape="rectangle">
-            <solid android:color="@color/text_blue" />
+            <solid android:color="@color/jain_book_store" />
 
             <corners android:radius="2dp" />
         </shape></item>
 
 </selector>
-<!-- #4F4A4A -->

@@ -10,11 +10,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -22,7 +29,9 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.app.happyhours.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -40,9 +49,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.happyhours.activity.App;
+import com.happyhours.activity.DashboardActivity;
 import com.happyhours.activity.DealsDetailActivity;
+import com.happyhours.activity.DealsSearchResultActivity;
 import com.happyhours.adapter.DealsSearchAdapter;
 import com.happyhours.adapter.IconizedWindowAdapter;
+import com.happyhours.location.LocationUtils;
 import com.happyhours.model.Data;
 import com.happyhours.model.Deals;
 import com.happyhours.model.ListItem;
@@ -61,7 +73,9 @@ public class MapDetailFragment extends BaseFragment {
 	private HorizontalListView mHlvCustomListWithDividerAndFadingEdge;
 //	List<ListItem> propertyList;
 	List<Deals> deals;
+	List<Deals> hotDeals;
 	private Button viewHotDeals;
+	SearchView searchView ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -108,64 +122,60 @@ public class MapDetailFragment extends BaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-		if (!Utils.isNetworkAvailable(dashboardActivity)) {
-			NotificationUtils.showNotificationToast(dashboardActivity, "No network connection");
-			return;
-		}
-		
-		JSONObject jsonObject = new JSONObject();
-		try {
-			jsonObject.put("latitude", 25.198342);
-			jsonObject.put("longitude", 55.274140);
-			jsonObject.put("requiredDistance", 500);
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-
-		}
-
-		TAListener taListener = new TAListener() {
-
-			@Override
-			public void onTaskFailed(Bundle argBundle) {
-
-			}
-
-			@Override
-			public void onTaskCompleted(Bundle argBundle) {
-
-				String responseJSON = argBundle
-						.getString(TAListener.LISTENER_BUNDLE_STRING_1);
-				 Type type = new TypeToken<List<Deals>>() {}.getType();
-				 Gson gson=new Gson();
-				 
-				try {
-					deals= gson.fromJson(responseJSON, type);
-					App app=(App) dashboardActivity.getApplication();
-					app.setDeals(deals);
-					setupUiComponent();
-					
-				} catch (JsonSyntaxException e) {
-					Log.e("****", ""+e);
-					
-				}
-		
-				
-				
-			
-				
-			}
-		};
-		new TAPOSTWebServiceAsyncTask(getActivity(), null, taListener,
-				WebServiceConstants.GET_ALL_DEALS, jsonObject.toString(), null)
-				.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-						(Void[]) null);
 		
 
+		
+		
+     
 
 	}
+	private void location() {
+		   // If Google Play Services is available
+				if (dashboardActivity.servicesConnected()) {
 
+					// Get the current location
+					Location currentLocation = dashboardActivity.mLocationClient
+							.getLastLocation();
+					String[] randomLocation = LocationUtils.getLatLng(
+							dashboardActivity, currentLocation);
+					// remove 
+					//randomLocation=null;
+					if (randomLocation != null) {
+						randerDataOnMap(randomLocation[0], randomLocation[1]);
+					}
+
+				} else {
+					 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							 dashboardActivity);
+				 
+							// set title
+							alertDialogBuilder.setTitle(R.string.app_name);
+				 
+							// set dialog message
+							alertDialogBuilder
+								.setMessage("Unable to fond location.Try again ?")
+								.setCancelable(false)
+								.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										dialog.cancel();
+										location();
+									}
+								  })
+								.setNegativeButton("No",new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,int id) {
+										// if this button is clicked, just close
+										// the dialog box and do nothing
+										dashboardActivity.finish();
+									}
+								});
+				 
+								// create alert dialog
+								AlertDialog alertDialog = alertDialogBuilder.create();
+				 
+								// show it
+								alertDialog.show();
+				}
+	}
 	private void initilizeMap() {
 		if (googleMap == null) {
 
@@ -185,6 +195,105 @@ public class MapDetailFragment extends BaseFragment {
 	public void onResume() {
 		initilizeMap();
 		super.onResume();
+		mHlvCustomListWithDividerAndFadingEdge = (HorizontalListView) detailMapFragment
+				.findViewById(R.id.hlvCustomListWithDividerAndFadingEdge);
+		
+		mHlvCustomListWithDividerAndFadingEdge.setVisibility(View.GONE);
+		viewHotDeals = (Button) detailMapFragment
+				.findViewById(R.id.viewHotDeals);
+
+		viewHotDeals.setText("Show hot deals");
+		viewHotDeals.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				
+		if (hotDeals==null||hotDeals.size()==0) {
+			NotificationUtils.showNotificationToast(dashboardActivity, "No hot deals available");
+			return;
+		}
+		        
+		            int listVisibility = mHlvCustomListWithDividerAndFadingEdge
+							.getVisibility();
+					if (listVisibility == View.VISIBLE) {
+						Animation bottomUp = AnimationUtils.loadAnimation(
+								getActivity(), R.anim.bottom_down);
+						bottomUp.setAnimationListener(new AnimationListener() {
+
+							@Override
+							public void onAnimationStart(Animation arg0) {
+								viewHotDeals.setVisibility(View.INVISIBLE);
+
+							}
+
+							@Override
+							public void onAnimationRepeat(Animation arg0) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onAnimationEnd(Animation arg0) {
+								viewHotDeals.setVisibility(View.VISIBLE);
+
+							}
+						});
+
+						mHlvCustomListWithDividerAndFadingEdge
+								.startAnimation(bottomUp);
+
+						mHlvCustomListWithDividerAndFadingEdge
+								.setVisibility(View.GONE);
+						viewHotDeals.setText("Show hot deals");
+					} else {
+						Animation bottomUp = AnimationUtils.loadAnimation(
+								getActivity(), R.anim.bottom_up);
+						bottomUp.setAnimationListener(new AnimationListener() {
+
+							@Override
+							public void onAnimationStart(Animation arg0) {
+								viewHotDeals.setVisibility(View.INVISIBLE);
+
+							}
+
+							@Override
+							public void onAnimationRepeat(Animation arg0) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onAnimationEnd(Animation arg0) {
+								viewHotDeals.setVisibility(View.VISIBLE);
+
+							}
+						});
+
+						mHlvCustomListWithDividerAndFadingEdge
+								.startAnimation(bottomUp);
+						mHlvCustomListWithDividerAndFadingEdge
+								.setVisibility(View.VISIBLE);
+						viewHotDeals.setText("Hide hot deals");
+					}
+		            
+		  
+				
+
+			}
+		});
+		
+
+		if (!Utils.isNetworkAvailable(dashboardActivity)) {
+			NotificationUtils.showNotificationToast(dashboardActivity, "No network connection");
+			return;
+		}
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				location();
+			}
+		}, 1000);
 	}
 
 	@Override
@@ -268,93 +377,11 @@ public class MapDetailFragment extends BaseFragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		mHlvCustomListWithDividerAndFadingEdge = (HorizontalListView) detailMapFragment
-				.findViewById(R.id.hlvCustomListWithDividerAndFadingEdge);
-	//	propertyList = Data.getData();
-		
-		
+		hotDeals=getHotDeals(deals);
 		mHlvCustomListWithDividerAndFadingEdge
 				.setAdapter(new DealsSearchAdapter(getActivity(),
-						R.layout.item_hot_deals, getHotDeals(deals)));
-		
-		
-		mHlvCustomListWithDividerAndFadingEdge.setVisibility(View.GONE);
-		viewHotDeals = (Button) detailMapFragment
-				.findViewById(R.id.viewHotDeals);
-
-		viewHotDeals.setText("Show hot deals");
-		viewHotDeals.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-
-				int listVisibility = mHlvCustomListWithDividerAndFadingEdge
-						.getVisibility();
-				if (listVisibility == View.VISIBLE) {
-					Animation bottomUp = AnimationUtils.loadAnimation(
-							getActivity(), R.anim.bottom_down);
-					bottomUp.setAnimationListener(new AnimationListener() {
-
-						@Override
-						public void onAnimationStart(Animation arg0) {
-							viewHotDeals.setVisibility(View.INVISIBLE);
-
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation arg0) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onAnimationEnd(Animation arg0) {
-							viewHotDeals.setVisibility(View.VISIBLE);
-
-						}
-					});
-
-					mHlvCustomListWithDividerAndFadingEdge
-							.startAnimation(bottomUp);
-
-					mHlvCustomListWithDividerAndFadingEdge
-							.setVisibility(View.GONE);
-					viewHotDeals.setText("Show hot deals");
-				} else {
-					Animation bottomUp = AnimationUtils.loadAnimation(
-							getActivity(), R.anim.bottom_up);
-					bottomUp.setAnimationListener(new AnimationListener() {
-
-						@Override
-						public void onAnimationStart(Animation arg0) {
-							viewHotDeals.setVisibility(View.INVISIBLE);
-
-						}
-
-						@Override
-						public void onAnimationRepeat(Animation arg0) {
-							// TODO Auto-generated method stub
-
-						}
-
-						@Override
-						public void onAnimationEnd(Animation arg0) {
-							viewHotDeals.setVisibility(View.VISIBLE);
-
-						}
-					});
-
-					mHlvCustomListWithDividerAndFadingEdge
-							.startAnimation(bottomUp);
-					mHlvCustomListWithDividerAndFadingEdge
-							.setVisibility(View.VISIBLE);
-					viewHotDeals.setText("Hide hot deals");
-				}
-
-			}
-		});
-
+						R.layout.item_hot_deals, hotDeals));
+	
 	}
 	
 
@@ -370,5 +397,116 @@ public class MapDetailFragment extends BaseFragment {
 		}
 		
 		return hotDeals;
+	}
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+
+		
+		inflater.inflate(R.menu.map, menu);
+		
+		   searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
+		  searchView.setOnQueryTextListener(queryListener);
+		  super.onCreateOptionsMenu(menu, inflater);
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	final private OnQueryTextListener queryListener = new OnQueryTextListener() {       
+
+	    @Override
+	    public boolean onQueryTextChange(String newText) {
+	      /*  if (TextUtils.isEmpty(newText)) {
+	            getActivity().getActionBar().setSubtitle("List");               
+	            searchString = null;
+	        } else {
+	            getActivity().getActionBar().setSubtitle("List - Searching for: " + newText);
+	            searchString = newText;
+
+	        }   
+	        getLoaderManager().restartLoader(0, null, MyListFragment.this); */
+	        return false;
+	    }
+
+	    @Override
+	    public boolean onQueryTextSubmit(String query) {  
+	    	searchView.clearFocus();
+	    	if (!query.isEmpty()) {
+	    	
+		        Intent intent =new Intent(dashboardActivity, DealsSearchResultActivity.class);
+		        intent.putExtra("SEARCH_STRING", query.toLowerCase().replaceAll(" ", "%20"));
+		        startActivity(intent);
+		       
+			}
+	    	
+	        return false;
+	    }
+	};
+	
+	private void randerDataOnMap(String lat,String lang) {
+
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("latitude", 25.198342);
+			jsonObject.put("longitude", 55.274140);
+/*			jsonObject.put("latitude", lat);
+			jsonObject.put("longitude", lang);*/
+			jsonObject.put("requiredDistance", 1000);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+
+		}
+
+		TAListener taListener = new TAListener() {
+
+			@Override
+			public void onTaskFailed(Bundle argBundle) {
+
+			}
+
+			@Override
+			public void onTaskCompleted(Bundle argBundle) {
+
+				String responseJSON = argBundle
+						.getString(TAListener.LISTENER_BUNDLE_STRING_1);
+				 Type type = new TypeToken<List<Deals>>() {}.getType();
+				 Gson gson=new Gson();
+				
+				try {
+					deals= gson.fromJson(responseJSON, type);
+					App app=(App) dashboardActivity.getApplication();
+					app.setDeals(deals);
+					setupUiComponent();
+					
+				} catch (JsonSyntaxException e) {
+					Log.e("****", ""+e);
+					
+				}
+		
+				
+				
+			
+				
+			}
+		};
+		new TAPOSTWebServiceAsyncTask(getActivity(), null, taListener,
+				WebServiceConstants.GET_ALL_DEALS, jsonObject.toString(), null)
+				.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+						(Void[]) null);
+		
+
+
+	
 	}
 }

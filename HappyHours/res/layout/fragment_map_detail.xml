@@ -29,11 +29,11 @@
             android:background="#CB2934"
             android:padding="3dp"
             android:textSize="@dimen/small_text_font_size"
-            android:text="Button" />
+            />
         
          <com.meetme.android.horizontallistview.HorizontalListView
              android:id="@+id/hlvCustomListWithDividerAndFadingEdge"
-             android:layout_width="match_parent"
+             android:layout_width="wrap_content"
              android:layout_height="180dp"
              android:fadingEdgeLength="0dp"
              android:requiresFadingEdge="horizontal"

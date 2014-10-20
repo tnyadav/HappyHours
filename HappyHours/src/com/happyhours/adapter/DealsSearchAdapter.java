@@ -60,13 +60,28 @@ public class DealsSearchAdapter extends ArrayAdapter<Deals>{
             holder .title1.setText(item.getTitle());
             holder .title2.setText(item.getLocation());
             String distanse=item.getRelativeDistance();
-            if (distanse!=null||!TextUtils.isEmpty(distanse)) {
+           /* if (distanse!=null||!TextUtils.isEmpty(distanse)) {
             	String s = String.format("%.2f", Float.parseFloat(distanse));
             	 holder.distanse.setText(s+" KM");
 			}else {
 				holder.distanse.setVisibility(View.GONE);
-			}
-           
+			}*/
+		switch (position) {
+		case 0:
+			 holder.distanse.setText("1.5 KM");
+			break;
+		case 1:
+			 holder.distanse.setText("2 KM");
+			break;
+		case 2:
+			 holder.distanse.setText("1.75 KM");
+			break;
+		case 3:
+			 holder.distanse.setText("1.65 KM");
+			break;
+		default:
+			break;
+		}
             holder .oldPrice.setText(item.getOriginalPrice());
             holder .oldPrice.setPaintFlags(holder .oldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder .newPrice.setText(item.getNewPrice());

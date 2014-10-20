@@ -10,225 +10,530 @@
         android:layout_margin="5dp"
         android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
         <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offer Title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
-
-        </EditText>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offer SubTitle"
+            android:gravity="center"
+            android:text="Add new deal"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Deal Title"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Offer Discriptions"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/layout_padding_small"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal" >
 
-        </EditText>
+            <ImageView
+                android:id="@+id/mainImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/layout_padding_small"
+                android:background="@color/light_gray_divider"
+                android:padding="1dp"
+                android:src="@drawable/logo" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Deal Image"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Original Price"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Button
+                android:id="@+id/mainImage"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/setting_button_selector"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Browse"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_font_size" >
+            </Button>
+        </LinearLayout>
 
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Deal SubTitle"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Price"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+            <EditText
+                android:id="@+id/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:inputType="textMultiLine"
+                android:minLines="2"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
+<LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Deal Location"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:inputType="textMultiLine"
+                android:minLines="2"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Deal Description"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <EditText
+                android:id="@+id/discription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Date"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Original Price"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <EditText
+                android:id="@+id/originalPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/layout_padding_small"
+                android:singleLine="true"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discount"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="New Price"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <EditText
+                android:id="@+id/newPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                 android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/layout_padding_small"
+                android:singleLine="true"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discount"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-           
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Start Date"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
 
-        <TextView
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Discount"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+                <EditText
+                    android:id="@+id/startDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_default_bg"
+                    android:ems="10"
+                    android:editable="false"
+                    android:inputType="none"
+                    android:clickable="false"
+                    android:padding="@dimen/layout_padding_small"
+                    android:textSize="@dimen/normal_text_font_size" >
+                </EditText>
 
-        <EditText
-           
+                <ImageButton
+                    android:id="@+id/btnStartDate"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                   
+                    android:background="@android:drawable/ic_menu_my_calendar"
+                    >
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        </EditText>
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="End Date"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" 
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/endDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_default_bg"
+                    android:ems="10"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:inputType="none"
+                    android:padding="@dimen/layout_padding_small"
+                    android:textSize="@dimen/normal_text_font_size" >
+
+                </EditText>
+                <ImageButton
+                    android:id="@+id/btnEndDate"
+                     android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:drawable/ic_menu_my_calendar" >
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_padding_medium"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:layout_weight="1"
+                android:text="Deal type"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <CheckBox
+                android:id="@+id/dealType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/layout_padding_medium"
+                android:layout_marginLeft="@dimen/layout_padding_medium"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Hot Deal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Geo Location"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <EditText
+                android:id="@+id/latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:hint="Latitude"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:hint="Longitude"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_padding_medium"
+                android:text="Deal Offers"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <EditText
+                android:id="@+id/offer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:hint="offer 1 description"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/offer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:hint="offer 2 description"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/offer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_default_bg"
+                android:hint="offer 3 description"
+                android:inputType="textMultiLine"
+                android:padding="@dimen/layout_padding_small"
+                android:textSize="@dimen/normal_text_font_size" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/layout_padding_small"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/layout_padding_small"
+                android:background="@color/light_gray_divider"
+                android:padding="1dp"
+                android:src="@drawable/logo" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Deal Image 1"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <Button
+                android:id="@+id/image1"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/setting_button_selector"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Browse"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_font_size" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/layout_padding_small"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/layout_padding_small"
+                android:background="@color/light_gray_divider"
+                android:padding="1dp"
+                android:src="@drawable/logo" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Deal Image 2"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <Button
+                android:id="@+id/image2"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/setting_button_selector"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Browse"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_font_size" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/layout_padding_small"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/layout_padding_small"
+                android:background="@color/light_gray_divider"
+                android:padding="1dp"
+                android:src="@drawable/logo" />
+
+            <com.happyhours.util.CustomTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Deal Image 3"
+                android:textColor="@color/menu_text_color"
+                android:textSize="@dimen/normal_text_font_size" />
+
+            <Button
+                android:id="@+id/image3"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/setting_button_selector"
+                android:padding="@dimen/layout_padding_small"
+                android:text="Browse"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_font_size" >
+            </Button>
+        </LinearLayout>
+        
+        <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                
+                android:layout_gravity="center"
+                android:background="@drawable/setting_button_selector"
+                android:padding="@dimen/layout_padding_medium"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal_text_font_size" >
+            </Button>
     </LinearLayout>
-   </LinearLayout>
+
 </ScrollView>

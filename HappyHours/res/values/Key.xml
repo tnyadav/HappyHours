@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_key_happyhours_qa">AIzaSyDYG1mKBJeneUnvp3o7Em6u73ytMMaSCGs</string>
+    <string name="map_key_happyhours_qa1">AIzaSyDYG1mKBJeneUnvp3o7Em6u73ytMMaSCGs</string>
+     <string name="map_key_happyhours_qa">AIzaSyBFofxYhxFMY7piuk84ryY6ROtI_7QFanc</string>
     
 </resources>
  
