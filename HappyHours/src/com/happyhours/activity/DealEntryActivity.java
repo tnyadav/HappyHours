@@ -1,9 +1,13 @@
-package com.happyhours.fragments;
+package com.happyhours.activity;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,40 +19,56 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.app.happyhours.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.happyhours.model.Category;
 import com.happyhours.model.DealOffers;
 import com.happyhours.model.Deals;
 import com.happyhours.model.Login;
+import com.happyhours.util.CustomDateTimePicker;
 import com.happyhours.util.NotificationUtils;
+import com.happyhours.util.TAListener;
+import com.jainbooks.web.TAWebServiceAsyncTask;
 import com.jainbooks.web.WebServiceConstants;
 
-public class DealEntryFragment extends BaseFragment {
+public class DealEntryActivity extends BaseActivity implements
+ConnectionCallbacks,
+OnConnectionFailedListener,
+LocationListener{
 	private static final int MAIN_IMAGE = 100;
 	private static final int IMAGE1 = 101;
 	private static final int IMAGE2 = 102;
@@ -56,11 +76,12 @@ public class DealEntryFragment extends BaseFragment {
 	private static final int DATE_DIALOG_ID = 999;
 	private static final int START_DATE = 104;
 	private static final int END_DATE = 105;
-	private int date=0;
+	private static final int CHANGE_ADDRESS = 106;
+//	private int date=0;
 	private int year;
 	private int month;
 	private int day;
-
+	private LocationClient mLocationClient;
 	private EditText title, subTitle, location,discription, originalPrice, newPrice,
 			startDate, endDate, latitude, longitude, offer1, offer2, offer3;
 	private String strTitle, strSubTitle, strLocation,strDiscription, strOriginalPrice,
@@ -68,103 +89,110 @@ public class DealEntryFragment extends BaseFragment {
 			strOffer1, strOffer2, strOffer3, mainImagePath, image1Path,
 			image2Path, image3Path;
 	private CheckBox dealType;
-	private Button mainImage, image1, image2, image3,submit;
+	private Button mainImage, image1, image2, image3,submit,changeAddress;
 	private ImageButton btnStartDate,btnEndDate;
-	ImageView mainImageView, imageView1, imageView2, imageView3;
+	private ImageView mainImageView, imageView1, imageView2, imageView3;
+	private Spinner spinner;
+	private Activity dashboardActivity;
+	private boolean isLocationAdded=false;
+	private static final LocationRequest REQUEST = LocationRequest.create()
+	            .setInterval(5000)         // 5 seconds
+	            .setFastestInterval(16)    // 16ms = 60fps
+	            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+	
+	List<Category> categories;
+@Override
+@SuppressLint("NewApi")
+protected void onCreate(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_deal_entry);
+	final Calendar c = Calendar.getInstance();
+	year = c.get(Calendar.YEAR);
+	month = c.get(Calendar.MONTH);
+	day = c.get(Calendar.DAY_OF_MONTH);
+	dashboardActivity=this;
+	setupUiComponent();
+}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.activity_deal_entry, container, false);
-		final Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
-		return view;
-	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		setupUiComponent();
-	}
 
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		
-		
-		 }
-
-	@Override
 	void setupUiComponent() {
-		title = (EditText) view.findViewById(R.id.title);
-		subTitle = (EditText) view.findViewById(R.id.subTitle);
-		location = (EditText) view.findViewById(R.id.location);
-		discription = (EditText) view.findViewById(R.id.discription);
-		originalPrice = (EditText) view.findViewById(R.id.originalPrice);
-		newPrice = (EditText) view.findViewById(R.id.newPrice);
-		startDate = (EditText) view.findViewById(R.id.startDate);
-		endDate = (EditText) view.findViewById(R.id.endDate);
-		latitude = (EditText) view.findViewById(R.id.latitude);
-		longitude = (EditText) view.findViewById(R.id.longitude);
-		dealType = (CheckBox) view.findViewById(R.id.dealType);
-		offer1 = (EditText) view.findViewById(R.id.offer1);
-		offer2 = (EditText) view.findViewById(R.id.offer2);
-		offer3 = (EditText) view.findViewById(R.id.offer3);
+		title = (EditText) findViewById(R.id.title);
+		subTitle = (EditText) findViewById(R.id.subTitle);
+		location = (EditText) findViewById(R.id.location);
+		discription = (EditText) findViewById(R.id.discription);
+		originalPrice = (EditText) findViewById(R.id.originalPrice);
+		newPrice = (EditText) findViewById(R.id.newPrice);
+		startDate = (EditText) findViewById(R.id.startDate);
+		endDate = (EditText) findViewById(R.id.endDate);
+		latitude = (EditText) findViewById(R.id.latitude);
+		longitude = (EditText) findViewById(R.id.longitude);
+		dealType = (CheckBox) findViewById(R.id.dealType);
+		offer1 = (EditText) findViewById(R.id.offer1);
+		offer2 = (EditText) findViewById(R.id.offer2);
+		offer3 = (EditText) findViewById(R.id.offer3);
 
-		mainImageView = (ImageView) view.findViewById(R.id.mainImageView);
-		imageView1 = (ImageView) view.findViewById(R.id.imageView1);
-		imageView2 = (ImageView) view.findViewById(R.id.imageView2);
-		imageView3 = (ImageView) view.findViewById(R.id.imageView3);
+		mainImageView = (ImageView) findViewById(R.id.mainImageView);
+		imageView1 = (ImageView) findViewById(R.id.imageView1);
+		imageView2 = (ImageView) findViewById(R.id.imageView2);
+		imageView3 = (ImageView) findViewById(R.id.imageView3);
 
-		mainImage = (Button) view.findViewById(R.id.mainImage);
+		mainImage = (Button) findViewById(R.id.mainImage);
 		mainImage.setOnClickListener(onClickListener);
-		image1 = (Button) view.findViewById(R.id.image1);
+		image1 = (Button) findViewById(R.id.image1);
 		image1.setOnClickListener(onClickListener);
-		image2 = (Button) view.findViewById(R.id.image2);
+		image2 = (Button) findViewById(R.id.image2);
 		image2.setOnClickListener(onClickListener);
-		image3 = (Button) view.findViewById(R.id.image3);
+		image3 = (Button) findViewById(R.id.image3);
 		image3.setOnClickListener(onClickListener);
 		
-		submit=(Button)view.findViewById(R.id.submit);
+		submit=(Button)findViewById(R.id.submit);
 		submit.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				//startActivity(new Intent(dashboardActivity, MyLocationDemoActivity.class));
 				submitDeal();
 				
 			}
 		});
-		
-		btnStartDate=(ImageButton)view.findViewById(R.id.btnStartDate);
+		changeAddress=(Button)findViewById(R.id.changeAddress);
+		changeAddress.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(new Intent(dashboardActivity,
+						MyLocationDemoActivity.class), CHANGE_ADDRESS);
+			}
+		});
+		btnStartDate=(ImageButton)findViewById(R.id.btnStartDate);
 		btnStartDate.setOnClickListener(new OnClickListener() {
 			 
 			@Override
 			public void onClick(View v) {
  
-				Dialog dialog=showDialog(DATE_DIALOG_ID);
-				date=START_DATE;
-				dialog.show();
+		      showDateTimeDialog(START_DATE);
+				//date=START_DATE;
+				
 			}
  
 		});
-		btnEndDate=(ImageButton)view.findViewById(R.id.btnEndDate);
+		btnEndDate=(ImageButton)findViewById(R.id.btnEndDate);
 		btnEndDate.setOnClickListener(new OnClickListener() {
 			 
 			@Override
 			public void onClick(View v) {
  
-				Dialog dialog=showDialog(DATE_DIALOG_ID);
-				date=END_DATE;;
-				dialog.show();
+				showDateTimeDialog(END_DATE);
+				//date=END_DATE;;
+				
  
 			}
  
 		});
-
+		spinner=(Spinner)findViewById(R.id.category);
+		
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -198,6 +226,7 @@ public class DealEntryFragment extends BaseFragment {
 	}
 
 	private void submitDeal() {
+		Deals deals = new Deals();
 		strTitle = title.getText().toString();
 		strSubTitle = subTitle.getText().toString();
 		strLocation=location.getText().toString();
@@ -259,17 +288,25 @@ public class DealEntryFragment extends BaseFragment {
 					"Please select Deal image");
 			return;
 		}
-
-		Deals deals = new Deals();
+		if (categories!=null&&categories.size()>0) {
+			Category category=(Category) spinner.getSelectedItem();
+			deals.setDealCategory(category);
+		}else {
+			NotificationUtils.showNotificationToast(dashboardActivity,
+					"No deal category selected");
+			return;
+		}
+		
 		deals.setTitle(strTitle);
 		deals.setSubTitle(strSubTitle);
 		deals.setDescription(strDiscription);
-		double Percentage=(Long.parseLong(strOriginalPrice) - Long
-				.parseLong(strNewPrice));
+		double dOriginal=Long.parseLong(strOriginalPrice);
+		double dNewpice=Long.parseLong(strNewPrice);
 		
-	/*	long Percentage = ((Long.parseLong(strOriginalPrice) - Long
-				.parseLong(strNewPrice)) / Long.parseLong(strOriginalPrice)) * 100;
-*/
+		double diff=dOriginal-dNewpice;
+		
+		double Percentage = (diff*100)/dOriginal;
+
 		deals.setDiscount(""+Percentage);
 		deals.setLocation(strLocation);
 		deals.setOriginalPrice(strOriginalPrice);
@@ -294,6 +331,8 @@ public class DealEntryFragment extends BaseFragment {
 		dealOffers3.setOfferName(strOffer3);
 		dealOffersList.add(dealOffers3);
 		deals.setDealOffersList(dealOffersList);
+		
+		
 		saveDealToServer(deals);
 
 	}
@@ -306,8 +345,11 @@ public class DealEntryFragment extends BaseFragment {
 		if (resultCode == Activity.RESULT_OK) {
 
 			String path = null;
-			Uri currImageURI = data.getData();
-			Bitmap bitmap = MediaStore.Images.Thumbnails.getThumbnail(
+			Bitmap bitmap = null;
+			if (requestCode!=CHANGE_ADDRESS) {
+			 path = null;
+		 	 Uri currImageURI = data.getData();
+			 bitmap = MediaStore.Images.Thumbnails.getThumbnail(
 					dashboardActivity.getContentResolver(),
 					Long.parseLong(currImageURI.getLastPathSegment()),
 					MediaStore.Images.Thumbnails.MICRO_KIND, null);
@@ -318,7 +360,7 @@ public class DealEntryFragment extends BaseFragment {
 				// NotificationUtils.showNotificationToast(dashboardActivity,
 				// path);
 			}
-
+			}
 			switch (requestCode) {
 			case MAIN_IMAGE:
 				mainImagePath = path;
@@ -335,6 +377,14 @@ public class DealEntryFragment extends BaseFragment {
 			case IMAGE3:
 				image3Path = path;
 				imageView3.setImageBitmap(bitmap);
+				break;
+			case CHANGE_ADDRESS:
+				String stAddress=data.getStringExtra(MyLocationDemoActivity.ADDRESS);
+				String stLatitude=data.getStringExtra(MyLocationDemoActivity.LATITUDE);
+				String stLongitude=data.getStringExtra(MyLocationDemoActivity.LONGITUDE);
+				location.setText(stAddress);
+				latitude.setText(stLatitude);
+				longitude.setText(stLongitude);
 				break;
 			default:
 				break;
@@ -357,67 +407,55 @@ public class DealEntryFragment extends BaseFragment {
 		return cursor.getString(column_index);
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		
-		
-		inflater.inflate(R.menu.map, menu);
-		super.onCreateOptionsMenu(menu, inflater);
-		
-		// dashboardActivity.invalidateOptionsMenu();
+	private void showDateTimeDialog(final int id) {
 
-		// fragment specific menu creation
+		CustomDateTimePicker custom;
+		custom = new CustomDateTimePicker(dashboardActivity,
+				new CustomDateTimePicker.ICustomDateTimeListener() {
+					@Override
+					public void onSet(Dialog dialog, Calendar calendar,
+							Date dateSelected, int year, String monthFullName,
+							String monthShortName, int monthNumber, int date,
+							String weekDayFullName, String weekDayShortName,
+							int hour24, int hour12, int min, int sec,
+							String AM_PM) {
+						
+						
+						String dateString=year + "-" + (monthNumber + 1) + "-"
+								+ calendar.get(Calendar.DAY_OF_MONTH)
+								+ " " + hour12 + ":" + min;
+						switch (id) {
+						case START_DATE:
+							strStartDate=""+calendar.getTimeInMillis();
+							startDate.setText(dateString);
+							break;
+			            case END_DATE:
+			            	strEndDate=""+calendar.getTimeInMillis();
+			            	endDate.setText(dateString);
+							break;
+						default:
+							break;
+						}
+						
+						/*editText.setText(year + "-" + (monthNumber + 1) + "-"
+								+ calendarSelected.get(Calendar.DAY_OF_MONTH)
+								+ " " + hour12 + ":" + min);*/
+					}
+
+					@Override
+					public void onCancel() {
+					}
+				});
+		
+		custom.set24HourFormat(true);
+	    custom.setDate(Calendar.getInstance());
+		custom.showDialog();
+
 	}
 
 
-	protected Dialog showDialog(int id) {
-		switch (id) {
-		case DATE_DIALOG_ID:
-			// set date picker as current date
-			return new DatePickerDialog(dashboardActivity, datePickerListener, year, month,
-					day);
-		}
-		return null;
-	}
-
-	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
-
-		// when dialog box is closed, below method will be called.
-		public void onDateSet(DatePicker view, int selectedYear,
-				int selectedMonth, int selectedDay) {
-			year = selectedYear;
-			month = selectedMonth;
-			day = selectedDay;
-			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.DAY_OF_MONTH, day);
-			cal.set(Calendar.MONTH, month);
-			cal.set(Calendar.YEAR, year);
-			StringBuilder dateString=new StringBuilder().append(month + 1)
-					.append("-").append(day).append("-").append(year)
-					.append(" ");
-			
-			switch (date) {
-			case START_DATE:
-				strStartDate=""+cal.getTimeInMillis();
-				startDate.setText(dateString);
-				break;
-            case END_DATE:
-            	strEndDate=""+cal.getTimeInMillis();
-            	endDate.setText(dateString);
-				break;
-			default:
-				break;
-			}
-			// set selected date into textview
-			/*tvDisplayDate.setText(new StringBuilder().append(month + 1)
-					.append("-").append(day).append("-").append(year)
-					.append(" "));*/
-
-			// set selected date into datepicker also
-			//dpResult.init(year, month, day, null);
-
-		}
-	};
+	
+	
 	private boolean checkDate() {
 		boolean check=false;
 		if (strStartDate!=null&&strEndDate!=null) {
@@ -540,7 +578,7 @@ private void cleareData() {
     image1Path="";
 	image2Path="";
 	image3Path="";
-	
+	isLocationAdded=false;
 	mainImageView.setImageBitmap(null);
 	mainImageView.setBackgroundResource(R.drawable.logo);
 	
@@ -552,5 +590,179 @@ private void cleareData() {
 	
 	imageView3.setImageBitmap(null);
 	imageView3.setBackgroundResource(R.drawable.logo);
+}
+@Override
+protected void onResume() {
+    super.onResume();
+    setUpLocationClientIfNeeded();
+    mLocationClient.connect();
+}
+
+@Override
+public void onPause() {
+    super.onPause();
+    if (mLocationClient != null) {
+        mLocationClient.disconnect();
+    }
+}
+
+private void setUpLocationClientIfNeeded() {
+    if (mLocationClient == null) {
+        mLocationClient = new LocationClient(
+                getApplicationContext(),
+                this,  // ConnectionCallbacks
+                this); // OnConnectionFailedListener
+    }
+}
+
+@Override
+public void onLocationChanged(Location location) {
+	if (location!=null&&!isLocationAdded) {
+		latitude.setText(""+location.getLatitude());
+		longitude.setText(""+location.getLongitude());
+		isLocationAdded=true;
+		(new GetAddressTask(DealEntryActivity.this)).execute(new LatLng(location.getLatitude(),location.getLongitude()));
+		
+	}
+	
+}
+
+
+@Override
+public void onConnectionFailed(ConnectionResult arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+@Override
+public void onConnected(Bundle arg0) {
+	 mLocationClient.requestLocationUpdates(
+             REQUEST,
+             this);  // LocationListener
+}
+
+
+@Override
+public void onDisconnected() {
+	// TODO Auto-generated method stub
+	
+}
+private class GetAddressTask extends AsyncTask<LatLng, Void, String> {
+	Context mContext;
+
+	public GetAddressTask(Context context) {
+		super();
+		mContext = context;
+	}
+	@Override
+	protected void onPreExecute() {
+		// TODO Auto-generated method stub// TODO Auto-generated method stub
+		super.onPreExecute();
+		NotificationUtils.showProgressDialog(mContext,"Pleasewait", "Getting Location");
+	}
+	  @Override
+        protected void onPostExecute(String address) {
+           NotificationUtils.dismissProgressDialog();
+           location.setText(address);
+           getCategory();
+        }
+
+	/**
+	 * Get a Geocoder instance, get the latitude and longitude look up the
+	 * address, and return it
+	 * 
+	 * @params params One or more Location objects
+	 * @return A string containing the address of the current location, or
+	 *         an empty string if no address can be found, or an error
+	 *         message
+	 */
+	@Override
+	protected String doInBackground(LatLng... params) {
+		Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+		// Get the current location from the input parameter list
+		LatLng loc = params[0];
+		// Create a list to contain the result address
+		List<Address> addresses = null;
+		try {
+			/*
+			 * Return 1 address.
+			 */
+			addresses = geocoder.getFromLocation(loc.latitude,
+					loc.longitude, 1);
+		} catch (IOException e1) {
+			Log.e("LocationSampleActivity",
+					"IO Exception in getFromLocation()");
+			e1.printStackTrace();
+			return ("Unable to get address");
+		} catch (IllegalArgumentException e2) {
+			// Error message to post in the log
+			String errorString = "Illegal arguments "
+					+ Double.toString(loc.latitude) + " , "
+					+ Double.toString(loc.longitude)
+					+ " passed to address service";
+			Log.e("LocationSampleActivity", errorString);
+			e2.printStackTrace();
+			return ("Unable to get address");
+		}
+		// If the reverse geocode returned an address
+		if (addresses != null && addresses.size() > 0) {
+			// Get the first address
+			Address address = addresses.get(0);
+			/*
+			 * Format the first line of address (if available), city, and
+			 * country name.
+			 */
+			String addressText = String.format(
+					"%s, %s, %s",
+					// If there's a street address, add it
+					address.getMaxAddressLineIndex() > 0 ? address
+							.getAddressLine(0) : "",
+					// Locality is usually a city
+					address.getLocality(),
+					// The country of the address
+					address.getCountryName());
+			// Return the text
+			return addressText;
+		} else {
+			return "Unable to get address";
+		}
+	}
+
+}
+private void getCategory() {
+	TAListener taListener=new TAListener() {
+		
+		@Override
+		public void onTaskFailed(Bundle argBundle) {
+		NotificationUtils.showNotificationToast(dashboardActivity, "Server not responds");
+			
+		}
+		
+		@Override
+		public void onTaskCompleted(Bundle argBundle) {
+			String responseJSON = argBundle
+					.getString(TAListener.LISTENER_BUNDLE_STRING_1);
+			 Type type = new TypeToken<List<Category>>() {}.getType();
+			 Gson gson=new Gson();
+			
+			try {
+				categories= gson.fromJson(responseJSON, type);
+				if (categories!=null&&categories.size()>0) {
+					spinner.setAdapter(new ArrayAdapter<Category>(activity,
+			                android.R.layout.simple_spinner_dropdown_item,
+			                categories));
+				}
+				
+			} catch (JsonSyntaxException e) {
+				Log.e("****", ""+e);
+				
+			}
+			
+		}
+		};
+		new TAWebServiceAsyncTask(dashboardActivity, null, taListener,
+				WebServiceConstants.GET_DEAL_CATEGORY, false)
+				.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
 }
 }

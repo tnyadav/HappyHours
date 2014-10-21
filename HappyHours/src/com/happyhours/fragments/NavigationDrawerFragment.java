@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.app.happyhours.R;
+import com.happyhours.activity.DealEntryActivity;
 import com.happyhours.activity.DealsSearchResultActivity;
 
 /**
@@ -51,7 +52,7 @@ public class NavigationDrawerFragment extends Fragment {
 	/**
 	 * A pointer to the current callbacks instance (the Activity).
 	 */
-	private NavigationDrawerCallbacks mCallbacks;
+//	private NavigationDrawerCallbacks mCallbacks;
 
 	/**
 	 * Helper component that ties the action bar to the navigation drawer.
@@ -87,7 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 
 		// Select either the default item (0) or the last selected item.
-		selectItem(mCurrentSelectedPosition);
+		//selectItem(mCurrentSelectedPosition);
 	}
 
 	@Override
@@ -162,8 +163,11 @@ public class NavigationDrawerFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				selectItem(1);
-
+				getActivity().startActivity(new Intent(getActivity(), DealEntryActivity.class));
+				
+				if (mDrawerLayout != null) {
+					mDrawerLayout.closeDrawer(mFragmentContainerView);
+				}
 			}
 		});
 		
@@ -264,7 +268,7 @@ public class NavigationDrawerFragment extends Fragment {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
-	private void selectItem(int position) {
+/*	private void selectItem(int position) {
 		mCurrentSelectedPosition = position;
 		if (mDrawerListView != null) {
 			mDrawerListView.setItemChecked(position, true);
@@ -275,9 +279,9 @@ public class NavigationDrawerFragment extends Fragment {
 		if (mCallbacks != null) {
 			switch (position) {
 			case 0:
-			/*	
+				
 				mCallbacks.onNavigationDrawerItemSelected("Admin",
-    					new DealEntryFragment());*/
+    					new DealEntryFragment());
 				mCallbacks.onNavigationDrawerItemSelected("Happy Hours Deals",
 						new MapDetailFragment());
 				break;
@@ -291,23 +295,23 @@ public class NavigationDrawerFragment extends Fragment {
 			
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		try {
+		/*try {
 			mCallbacks = (NavigationDrawerCallbacks) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(
 					"Activity must implement NavigationDrawerCallbacks.");
-		}
+		}*/
 	}
 
 	@Override
 	public void onDetach() {
 		super.onDetach();
-		mCallbacks = null;
+		//mCallbacks = null;
 	}
 
 	@Override
@@ -371,11 +375,11 @@ public class NavigationDrawerFragment extends Fragment {
 	/**
 	 * Callbacks interface that all activities using this fragment must
 	 * implement.
-	 */
+	 *//*
 	public static interface NavigationDrawerCallbacks {
-		/**
+		*//**
 		 * Called when an item in the navigation drawer is selected.
-		 */
+		 *//*
 		void onNavigationDrawerItemSelected(String title, Fragment fragment);
-	}
+	}*/
 }

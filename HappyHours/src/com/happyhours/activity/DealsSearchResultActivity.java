@@ -3,8 +3,6 @@ package com.happyhours.activity;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -28,7 +26,6 @@ import com.google.gson.reflect.TypeToken;
 import com.happyhours.adapter.DealsSearchAdapter;
 import com.happyhours.model.Deals;
 import com.happyhours.util.TAListener;
-import com.jainbooks.web.TAPOSTWebServiceAsyncTask;
 import com.jainbooks.web.TAWebServiceAsyncTask;
 import com.jainbooks.web.WebServiceConstants;
 
@@ -138,7 +135,7 @@ public class DealsSearchResultActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		getMenuInflater().inflate(R.menu.map, menu);
+		getMenuInflater().inflate(R.menu.deals_list, menu);
 
 		searchView = (SearchView) menu.findItem(R.id.action_search)
 				.getActionView();
@@ -149,8 +146,6 @@ public class DealsSearchResultActivity extends Activity {
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		MenuItem item = menu.findItem(R.id.action_example);
-		item.setVisible(false);
 		return super.onPrepareOptionsMenu(menu);
 	}
 

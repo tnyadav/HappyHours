@@ -129,7 +129,7 @@ public class MapDetailFragment extends BaseFragment {
      
 
 	}
-	private void location() {
+	private void location() {/*
 		   // If Google Play Services is available
 				if (dashboardActivity.servicesConnected()) {
 
@@ -175,7 +175,7 @@ public class MapDetailFragment extends BaseFragment {
 								// show it
 								alertDialog.show();
 				}
-	}
+	*/}
 	private void initilizeMap() {
 		if (googleMap == null) {
 

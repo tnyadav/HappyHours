@@ -16,9 +16,31 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Add new deal"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textStyle="bold" />
+
+        <com.happyhours.util.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_medium"
+            android:text="Deal category"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_small"
+            android:background="@color/alpha_blue" >
+
+            <Spinner
+                android:id="@+id/category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/normal_text_font_size" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +62,9 @@
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
+
             </EditText>
         </LinearLayout>
 
@@ -105,33 +129,125 @@
                 android:inputType="textMultiLine"
                 android:minLines="2"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
-<LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <com.happyhours.util.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_padding_medium"
-                android:text="Deal Location"
-                android:textColor="@color/menu_text_color"
-                android:textSize="@dimen/normal_text_font_size" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.happyhours.util.CustomTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_padding_medium"
+                    android:layout_weight="1"
+                    android:text="Deal Location"
+                    android:textColor="@color/menu_text_color"
+                    android:textSize="@dimen/normal_text_font_size" />
+
+                <Button
+                    android:id="@+id/changeAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/setting_button_selector"
+                    android:padding="@dimen/layout_padding_small"
+                    android:text="Change"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small_text_font_size" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_default_bg"
-                android:inputType="textMultiLine"
+                android:gravity="top|left"
+                android:inputType="textNoSuggestions|textMultiLine"
                 android:minLines="2"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/layout_padding_small"
+                android:orientation="vertical" >
+
+                <com.happyhours.util.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_padding_medium"
+                    android:text="Latitude"
+                    android:textColor="@color/menu_text_color"
+                    android:textSize="@dimen/normal_text_font_size" />
+
+                <com.happyhours.util.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_padding_medium"
+                    android:text="Longitude"
+                    android:textColor="@color/menu_text_color"
+                    android:textSize="@dimen/normal_text_font_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <!--
+             <com.happyhours.util.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_padding_medium"
+            android:text="Geo Location"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/normal_text_font_size" />
+                -->
+
+                <EditText
+                    android:id="@+id/latitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_default_bg"
+                    android:hint="Latitude"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/layout_padding_small"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/normal_text_font_size" >
+                </EditText>
+
+                <EditText
+                    android:id="@+id/longitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_default_bg"
+                    android:hint="Longitude"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/layout_padding_small"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/normal_text_font_size" />
+            </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -152,7 +268,9 @@
                 android:background="@drawable/edittext_default_bg"
                 android:inputType="textMultiLine"
                 android:minLines="3"
+                android:gravity="top|left"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
@@ -179,6 +297,7 @@
                 android:maxLines="1"
                 android:padding="@dimen/layout_padding_small"
                 android:singleLine="true"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
@@ -201,10 +320,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_default_bg"
-                 android:inputType="number"
+                android:inputType="number"
                 android:maxLines="1"
                 android:padding="@dimen/layout_padding_small"
                 android:singleLine="true"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
@@ -233,11 +353,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_default_bg"
-                    android:ems="10"
-                    android:editable="false"
-                    android:inputType="none"
                     android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="none"
                     android:padding="@dimen/layout_padding_small"
+                    android:textColor="@color/text_normal"
                     android:textSize="@dimen/normal_text_font_size" >
                 </EditText>
 
@@ -245,9 +366,7 @@
                     android:id="@+id/btnStartDate"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                   
-                    android:background="@android:drawable/ic_menu_my_calendar"
-                    >
+                    android:background="@android:drawable/ic_menu_my_calendar" >
                 </ImageButton>
             </LinearLayout>
         </LinearLayout>
@@ -267,8 +386,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" 
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center" >
 
                 <EditText
                     android:id="@+id/endDate"
@@ -276,17 +395,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_default_bg"
-                    android:ems="10"
-                    android:editable="false"
                     android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
                     android:inputType="none"
                     android:padding="@dimen/layout_padding_small"
+                    android:textColor="@color/text_normal"
                     android:textSize="@dimen/normal_text_font_size" >
-
                 </EditText>
+
                 <ImageButton
                     android:id="@+id/btnEndDate"
-                     android:layout_width="50dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:drawable/ic_menu_my_calendar" >
                 </ImageButton>
@@ -328,42 +448,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_padding_medium"
-                android:text="Geo Location"
-                android:textColor="@color/menu_text_color"
-                android:textSize="@dimen/normal_text_font_size" />
-
-            <EditText
-                android:id="@+id/latitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_default_bg"
-                android:hint="Latitude"
-                android:inputType="numberDecimal"
-                android:padding="@dimen/layout_padding_small"
-                android:textSize="@dimen/normal_text_font_size" >
-            </EditText>
-
-            <EditText
-                android:id="@+id/longitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_default_bg"
-                android:hint="Longitude"
-                android:inputType="numberDecimal"
-                android:padding="@dimen/layout_padding_small"
-                android:textSize="@dimen/normal_text_font_size" >
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <com.happyhours.util.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_padding_medium"
                 android:text="Deal Offers"
                 android:textColor="@color/menu_text_color"
                 android:textSize="@dimen/normal_text_font_size" />
@@ -376,6 +460,7 @@
                 android:hint="offer 1 description"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
 
@@ -387,6 +472,7 @@
                 android:hint="offer 2 description"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
 
@@ -398,6 +484,7 @@
                 android:hint="offer 3 description"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/layout_padding_small"
+                android:textColor="@color/text_normal"
                 android:textSize="@dimen/normal_text_font_size" >
             </EditText>
         </LinearLayout>
@@ -521,19 +608,18 @@
                 android:textSize="@dimen/small_text_font_size" >
             </Button>
         </LinearLayout>
-        
+
         <Button
-                android:id="@+id/submit"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                
-                android:layout_gravity="center"
-                android:background="@drawable/setting_button_selector"
-                android:padding="@dimen/layout_padding_medium"
-                android:text="Submit"
-                android:textColor="@color/white"
-                android:textSize="@dimen/normal_text_font_size" >
-            </Button>
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/setting_button_selector"
+            android:padding="@dimen/layout_padding_medium"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normal_text_font_size" >
+        </Button>
     </LinearLayout>
 
 </ScrollView>

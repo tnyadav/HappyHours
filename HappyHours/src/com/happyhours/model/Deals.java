@@ -56,6 +56,20 @@ public class Deals {
 	private String relativeDistance;
 	@Expose
 	private String requiredDistance;
+	@Expose
+	private Category dealCategory;
+
+	public Category getDealCategory() {
+		return dealCategory;
+	}
+
+
+
+	public void setDealCategory(Category dealCategory) {
+		this.dealCategory = dealCategory;
+	}
+
+
 
 	public String getId() {
 	return id;

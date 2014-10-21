@@ -46,7 +46,7 @@ public class DealsSearchAdapter extends ArrayAdapter<Deals>{
 	            holder .distanse = (TextView) convertView.findViewById(R.id.distanse);
 	            holder .oldPrice = (TextView) convertView.findViewById(R.id.oldPrice);
 	            holder .newPrice = (TextView) convertView.findViewById(R.id.newPrice);
-	          
+	            holder .category = (TextView) convertView.findViewById(R.id.category);
 		         
 	            convertView.setTag(holder);
 	        } else {
@@ -60,13 +60,14 @@ public class DealsSearchAdapter extends ArrayAdapter<Deals>{
             holder .title1.setText(item.getTitle());
             holder .title2.setText(item.getLocation());
             String distanse=item.getRelativeDistance();
-           /* if (distanse!=null||!TextUtils.isEmpty(distanse)) {
+            if (distanse!=null||!TextUtils.isEmpty(distanse)) {
             	String s = String.format("%.2f", Float.parseFloat(distanse));
             	 holder.distanse.setText(s+" KM");
 			}else {
 				holder.distanse.setVisibility(View.GONE);
-			}*/
-		switch (position) {
+			}
+            
+	/*	switch (position) {
 		case 0:
 			 holder.distanse.setText("1.5 KM");
 			break;
@@ -81,11 +82,16 @@ public class DealsSearchAdapter extends ArrayAdapter<Deals>{
 			break;
 		default:
 			break;
-		}
+		}*/
             holder .oldPrice.setText(item.getOriginalPrice());
             holder .oldPrice.setPaintFlags(holder .oldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder .newPrice.setText(item.getNewPrice());
-	       
+	        try {
+				holder.category.setText(item.getDealCategory().getCategoryName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
 	        return convertView;
 	    }
@@ -102,6 +108,7 @@ public class DealsSearchAdapter extends ArrayAdapter<Deals>{
 	    	private TextView distanse;
 	    	private TextView oldPrice;
 	    	private TextView newPrice;
+	    	private TextView category;
 	    	
 	    	
 	        
