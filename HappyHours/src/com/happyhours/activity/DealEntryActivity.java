@@ -88,7 +88,7 @@ LocationListener{
 			strNewPrice, strStartDate, strEndDate, strLatitude, strLongitude,
 			strOffer1, strOffer2, strOffer3, mainImagePath, image1Path,
 			image2Path, image3Path;
-	private CheckBox dealType;
+	//private CheckBox dealType;
 	private Button mainImage, image1, image2, image3,submit,changeAddress;
 	private ImageButton btnStartDate,btnEndDate;
 	private ImageView mainImageView, imageView1, imageView2, imageView3;
@@ -128,7 +128,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		endDate = (EditText) findViewById(R.id.endDate);
 		latitude = (EditText) findViewById(R.id.latitude);
 		longitude = (EditText) findViewById(R.id.longitude);
-		dealType = (CheckBox) findViewById(R.id.dealType);
+		//dealType = (CheckBox) findViewById(R.id.dealType);
 		offer1 = (EditText) findViewById(R.id.offer1);
 		offer2 = (EditText) findViewById(R.id.offer2);
 		offer3 = (EditText) findViewById(R.id.offer3);
@@ -307,7 +307,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		
 		double Percentage = (diff*100)/dOriginal;
 
-		deals.setDiscount(""+Percentage);
+		deals.setDiscount(""+Math.round(Percentage));
 		deals.setLocation(strLocation);
 		deals.setOriginalPrice(strOriginalPrice);
 		deals.setNewPrice(strNewPrice);
@@ -315,7 +315,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		deals.setEndDate(strEndDate);
 		deals.setLatitude(strLatitude);
 		deals.setLongitude(strLongitude);
-		deals.setDealType(dealType.isChecked());
+		deals.setDealType(false);
 		// adding offers
 		List<DealOffers> dealOffersList = new ArrayList<DealOffers>();
 

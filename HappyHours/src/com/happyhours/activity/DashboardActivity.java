@@ -476,7 +476,7 @@ LocationListener,
 		Iterator<Deals> iterator=deals.iterator();
 		while (iterator.hasNext()) {
 			Deals deals2=iterator.next();
-			if (deals2.getDealType()) {
+			if (deals2.getDealCategory().getCategoryName().equals("Hot Deals")) {
 				hotDeals.add(deals2);
 			}
 			

@@ -1,11 +1,11 @@
 package com.jainbooks.web;
 
 public class WebServiceConstants {
-	//private static final String BASE_URL = "http://115.113.54.10:8080/happyhours/rest/happy-hours-service/";
+	private static final String BASE_URL = "http://115.113.54.10:8080/happyhours/rest/happy-hours-service/";
 	
 	//********** system ip**********
 	
-	private static final String BASE_URL="http://172.16.4.2:8080/happyhours/rest/happy-hours-service/";
+	//private static final String BASE_URL="http://172.16.4.2:8080/happyhours/rest/happy-hours-service/";
 
 	public static final String REGISTRATION = BASE_URL + "register-new-user";
 	public static final String AUTHENTICATE = BASE_URL + "sign-in";
